@@ -27,7 +27,7 @@ def load_checkpoint(sess, saver, tag, checkpoint_dir, counter=None, step=False):
         ckpt_name = os.path.basename(ckpt.model_checkpoint_path)
 
         if not counter==None:
-            ckpt_name_epoch = ckpt_name[:ckpt_name.find(counter_name)] + counter_name + '-%i'%epoch
+            ckpt_name_epoch = ckpt_name[:ckpt_name.find(counter_name)] + counter_name + '-%i'%counter
             if os.path.exists(os.path.join(checkpoint_dir, ckpt_name_epoch+'.index')):
                 ckpt_name = ckpt_name_epoch
             else:

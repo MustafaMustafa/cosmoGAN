@@ -178,9 +178,9 @@ class dcgan(object):
 
     def _tensor_data_format(self, N, H, W, C):
         if self.data_format == "NHWC":
-            return [N, H, W, C]
+            return [int(N), int(H), int(W), int(C)]
         else:
-            return [N, C, H, W]
+            return [int(N), int(C), int(H), int(W)]
 
     def _check_architecture_consistency(self):
 

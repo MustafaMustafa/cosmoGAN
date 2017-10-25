@@ -20,7 +20,7 @@ experiment = 'cosmo_primary_256_200k_batchSize%i_flipLabel%0.3f_'\
              'nd%i_ng%i_gfdim%i_dfdim%i_zdim%i'%(batch_size, flip_labels, nd_layers,\
                                                  ng_layers, gf_dim, df_dim, z_dim)
 
-command = 'python models/main.py --dataset cosmo --datafile %s '\
+command = 'python -m models.main --dataset cosmo --datafile %s '\
           '--output_size %i --flip_labels %f --experiment %s '\
           '--epoch %i --batch_size %i --z_dim %i '\
           '--nd_layers %i --ng_layers %i --gf_dim %i --df_dim %i --save_every_step %s '\

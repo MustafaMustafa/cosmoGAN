@@ -1,5 +1,5 @@
 import tensorflow as tf
-from ops import linear, conv2d, conv2d_transpose, lrelu
+from .ops import linear, conv2d, conv2d_transpose, lrelu
 
 class dcgan(object):
     def __init__(self, output_size=64, batch_size=64, 

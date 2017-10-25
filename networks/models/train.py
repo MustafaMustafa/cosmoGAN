@@ -1,5 +1,6 @@
 import os
 import time
+import numpy as np
 import tensorflow as tf
 import dcgan
 from utils import save_checkpoint, load_checkpoint
@@ -39,9 +40,11 @@ def train_dcgan(data, config):
             start_time = time.time()
             for epoch in range(epoch, epoch + config.epoch):
 
+                perm = np.random.permutation(data.shape[0])
                 num_batches = data.shape[0] // config.batch_size
+
                 for idx in range(0, num_batches):
-                    batch_images = data[idx*config.batch_size:(idx+1)*config.batch_size]
+                    batch_images = data[perm[idx*config.batch_size:(idx+1)*config.batch_size]]
 
                     _, g_sum, d_sum = sess.run([update_op, gan.g_summary, gan.d_summary], 
                                                feed_dict={gan.images: batch_images})

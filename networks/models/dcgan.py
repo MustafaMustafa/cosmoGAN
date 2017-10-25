@@ -78,6 +78,28 @@ class dcgan(object):
 
         self.saver = tf.train.Saver(max_to_keep=8000)
 
+    def inference_graph(self):
+
+        if self.data_format == "NHWC":
+            self.images = tf.placeholder(tf.float32, [self.batch_size, self.output_size, self.output_size, self.c_dim], name='real_images')
+        else:
+            self.images = tf.placeholder(tf.float32, [self.batch_size, self.c_dim, self.output_size, self.output_size], name='real_images')
+
+        self.z = tf.placeholder(tf.float32, [None, self.z_dim], name='z')
+
+        with tf.variable_scope("discriminator") as d_scope:
+            self.D,_ = self.discriminator(self.images, is_training=False)
+
+        with tf.variable_scope("generator") as g_scope:
+            self.G = self.generator(self.z, is_training=False)
+
+        with tf.variable_scope("counters") as counters_scope:
+            self.epoch = tf.Variable(-1, name='epoch', trainable=False)
+            self.increment_epoch = tf.assign(self.epoch, self.epoch+1)
+            self.global_step = tf.Variable(0, name='global_step', trainable=False)
+
+        self.saver = tf.train.Saver(max_to_keep=8000)
+
     def optimizer(self, learning_rate, beta1):
 
         d_optim = tf.train.AdamOptimizer(learning_rate, beta1=beta1) \

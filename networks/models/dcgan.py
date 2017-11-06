@@ -114,11 +114,11 @@ class dcgan(object):
     def generator(self, z, is_training):
 
         map_size = self.output_size/int(2**self.ng_layers)
-        num_channels = self.gf_dim * int(2**(self.ng_layers -1))
+        num_filters = self.gf_dim * int(2**(self.ng_layers -1))
 
         # h0 = relu(BN(reshape(FC(z))))
-        z_ = linear(z, num_channels*map_size*map_size, 'h0_lin', transpose_b=self.transpose_b)
-        h0 = tf.reshape(z_, self._tensor_data_format(-1, map_size, map_size, num_channels))
+        z_ = linear(z, num_filters*map_size*map_size, 'h0_lin', transpose_b=self.transpose_b)
+        h0 = tf.reshape(z_, self._tensor_data_format(-1, map_size, map_size, num_filters))
         bn0 = tf.contrib.layers.batch_norm(h0, is_training=is_training, scope='bn0', **self.batchnorm_kwargs)
         h0 = tf.nn.relu(bn0)
 
@@ -126,9 +126,9 @@ class dcgan(object):
         for h in range(1, self.ng_layers):
             # h1 = relu(BN(conv2d_transpose(h0)))
             map_size *= self.stride
-            num_channels /= 2
+            num_filters /= 2
             chain = conv2d_transpose(chain,
-                                     self._tensor_data_format(self.batch_size, map_size, map_size, num_channels),
+                                     self._tensor_data_format(self.batch_size, map_size, map_size, num_filters),
                                      stride=self.stride, data_format=self.data_format, name='h%i_conv2d_T'%h)
             chain = tf.contrib.layers.batch_norm(chain, is_training=is_training, scope='bn%i'%h, **self.batchnorm_kwargs)
             chain = tf.nn.relu(chain)

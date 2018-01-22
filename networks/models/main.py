@@ -4,6 +4,7 @@ import numpy as np
 import pprint
 
 flags = tf.app.flags
+flags.DEFINE_string("model", "dcgan", "dcgan/cramer_dcgan [dcgan]")
 flags.DEFINE_string("dataset", "cosmo", "The name of dataset [cosmo]")
 flags.DEFINE_string("datafile", "data/cosmo_primary_64_1k_train.npy", "Input data file for cosmo")
 flags.DEFINE_integer("epoch", 25, "Epoch to train [25]")
@@ -11,6 +12,8 @@ flags.DEFINE_float("learning_rate", 0.0002, "Learning rate of for adam [0.0002]"
 flags.DEFINE_float("beta1", 0.5, "Momentum term of adam [0.5]")
 flags.DEFINE_float("flip_labels", 0, "Probability of flipping labels [0]")
 flags.DEFINE_integer("z_dim", 100, "Dimension of noise vector z [100]")
+flags.DEFINE_integer("d_out_dim", 256, "discriminator output dimension for cramer dcgan [256]")
+flags.DEFINE_integer("gradient_lambda", 10., "Gradient penalty scale in cramer dcgan [10.]")
 flags.DEFINE_integer("nd_layers", 4, "Number of discriminator convolutional layers. [4]")
 flags.DEFINE_integer("ng_layers", 4, "Number of generator conv_T layers. [4]")
 flags.DEFINE_integer("gf_dim", 64, "Dimension of gen filters in last conv layer. [64]")
@@ -29,7 +32,11 @@ config = flags.FLAGS
 def main(_):
 
     pprint.PrettyPrinter().pprint(config.__flags)
-    train.train_dcgan(get_data(), config)
+
+    if config.model == 'dcgan':
+        train.train_dcgan(get_data(), config)
+    else:
+        train.train_cramer_dcgan(get_data(), config)
 
 def get_data():
     data = np.load(config.datafile, mmap_mode='r')

@@ -167,7 +167,7 @@ class dcgan(object):
         chain = h0
         for h in range(1, self.nd_layers):
             # h1 = lrelu(BN(conv2d(h0)))
-            chain = conv2d(chain, self.df_dim*(2*h), self.data_format, name='h%i_conv'%h)
+            chain = conv2d(chain, self.df_dim*(2**h), self.data_format, name='h%i_conv'%h)
             if not self.gradient_penalty_mode: 
                 chain = tf.contrib.layers.batch_norm(chain, is_training=is_training, scope='bn%i'%h, **self.batchnorm_kwargs)
             chain = lrelu(chain)

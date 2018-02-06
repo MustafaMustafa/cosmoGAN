@@ -11,7 +11,7 @@ cd cosmoGAN/networks
 wget http://portal.nersc.gov/project/dasrepo/cosmogan/cosmogan_maps_256_8k_1.npy
 ```
 
-That will download sample data (8k maps) for testing. You can download more data from [here](http://portal.nersc.gov/project/dasrepo/cosmogan/).  
+That will download sample data (8k maps) for testing. You can download more data from [here](http://portal.nersc.gov/project/dasrepo/cosmogan/). All of this data has been generated using our GAN and can be used to train your own. Original data is available upon request from the authors.
 
 To run:
 ```bash

@@ -141,7 +141,7 @@ class cramer_dcgan(object):
             chain = image
             for h in range(1, self.nd_layers):
                 # h1 = lrelu(conv2d(h0))
-                num_filters = self.df_dim if h==0 else self.df_dim*h*2
+                num_filters = self.df_dim if h==0 else self.df_dim*2**h
                 chain = lrelu(conv2d(chain, num_filters, self.data_format, name='h%i_conv'%h))
 
             # h1 = linear(reshape(h0))

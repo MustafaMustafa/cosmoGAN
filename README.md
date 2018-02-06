@@ -27,4 +27,4 @@ wget http://portal.nersc.gov/project/dasrepo/cosmogan/cosmoGAN_pretrained_weight
 tar -xvf cosmoGAN_pretrained_weights.tar
 ```
 
-Then take a look at `load_and_use_pretrained_weights` notebook for how to run.  
+Then take a look at [networks/load_and_use_pretrained_weights.ipynb](networks/load_and_use_pretrained_weights.ipynb) notebook for how to run.  

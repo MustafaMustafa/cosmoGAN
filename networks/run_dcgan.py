@@ -1,9 +1,9 @@
 import os
 import subprocess
 
-datafile = '/data0/mustafa/cosmo/data/cosmo_primary_256_200k_train.npy'
+datafile = 'data/cosmogan_maps_256_8k_1.npy'
 output_size = 256
-epoch = 1
+epoch = 50
 flip_labels = 0.01
 batch_size = 64
 z_dim = 64
@@ -16,7 +16,7 @@ data_format = 'NCHW'
 transpose_matmul_b = False
 verbose = 'True'
 
-experiment = 'cosmo_primary_256_200k_batchSize%i_flipLabel%0.3f_'\
+experiment = 'cosmo_myExp_batchSize%i_flipLabel%0.3f_'\
              'nd%i_ng%i_gfdim%i_dfdim%i_zdim%i'%(batch_size, flip_labels, nd_layers,\
                                                  ng_layers, gf_dim, df_dim, z_dim)
 

@@ -8,7 +8,9 @@ The architecture is an implementation of the DCGAN architecture ([arXiv:1511.064
 ```bash
 git clone git@github.com:MustafaMustafa/cosmoGAN.git
 cd cosmoGAN/networks
+mkdir data
 wget http://portal.nersc.gov/project/dasrepo/cosmogan/cosmogan_maps_256_8k_1.npy
+cd ../
 ```
 
 That will download sample data (8k maps) for testing. You can download more data from [here](http://portal.nersc.gov/project/dasrepo/cosmogan/). All of this data has been generated using our GAN and can be used to train your own. Original data is available upon request from the authors.

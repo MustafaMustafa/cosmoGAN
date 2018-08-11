@@ -23,6 +23,8 @@ def train_dcgan(data, config):
                           data_format=config.data_format,
                           transpose_b=config.transpose_matmul_b)
 
+        save_every_step = True if config.save_every_step == 'True' else False
+
         gan.training_graph()
         update_op = gan.optimizer(config.learning_rate, config.beta1)
 
@@ -34,7 +36,7 @@ def train_dcgan(data, config):
             init_op = tf.global_variables_initializer()
             sess.run(init_op)
 
-            load_checkpoint(sess, gan.saver, 'dcgan', checkpoint_dir, step=config.save_every_step)
+            load_checkpoint(sess, gan.saver, 'dcgan', checkpoint_dir, step=save_every_step)
 
             epoch = sess.run(gan.increment_epoch)
             start_time = time.time()
@@ -53,7 +55,7 @@ def train_dcgan(data, config):
                     writer.add_summary(g_sum, global_step)
                     writer.add_summary(d_sum, global_step)
 
-                    if config.save_every_step:
+                    if save_every_step:
                         save_checkpoint(sess, gan.saver, 'dcgan', checkpoint_dir, global_step, step=True)
 
                     if config.verbose:
